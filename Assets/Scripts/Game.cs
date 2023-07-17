@@ -1,8 +1,10 @@
+using Assets.Scripts.Board;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum PlayerCreed
 {
+    None,
     Red,
     Blue,
     Yellow,
@@ -11,8 +13,7 @@ public enum PlayerCreed
 
 public class Game : MonoBehaviour
 {
-    private readonly int pointsNeeded = 4;
-    private readonly Dictionary<PlayerCreed, int> pointsAchieved;
+    public IBoard board;
 
     public static Game instance;
     private Game()
@@ -26,18 +27,54 @@ public class Game : MonoBehaviour
         };
     }
 
+    private readonly int pointsNeeded = 4;
+    private readonly Dictionary<PlayerCreed, int> pointsAchieved;
+
+    private PlayerCreed victor = PlayerCreed.None;
+    private List<IField> fields;
+
+    public int FieldCount => fields.Count;
+
     public void HandlePointAchieved(PlayerCreed creed)
     {
         pointsAchieved[creed]++;
+        CheckVictoryCondition(creed);
     }
 
-    void Start()
+    private void CheckVictoryCondition(PlayerCreed creed)
     {
-
+        if (pointsAchieved[creed] == pointsNeeded)
+        {
+            victor = creed;
+        }
     }
 
-    void Update()
+    private void MovePawn(Pawn pawn, int amount)
     {
+        int lastReachableField = pawn.MovesMade + amount;
 
+        if (lastReachableField >= FieldCount)
+        {
+            lastReachableField -= FieldCount;
+        }
+
+        for (int i = pawn.MovesMade; i != lastReachableField; i++)
+        {
+            if (i >= FieldCount)
+            {
+                i = 0;
+            }
+
+            fields[i].HandleArrival(pawn);
+            if (!pawn.IsAlive)
+            {
+                break;
+            }
+        }
+    }
+
+    private void Start()
+    {
+        fields = board.GetFields();
     }
 }
