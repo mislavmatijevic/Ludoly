@@ -6,6 +6,9 @@
         public string Name { get; set; }
         public int AchievedPoints { get; set; } = 0;
 
+        public delegate void PointAchieved();
+        public event PointAchieved OnPointAchieved;
+
         public Player(PlayerCreed creed, string name)
         {
             Creed = creed;

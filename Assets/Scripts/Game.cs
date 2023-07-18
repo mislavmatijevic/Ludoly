@@ -1,5 +1,7 @@
 using Assets.Scripts.Board;
 using Assets.Scripts.Gameplay;
+using Assets.Scripts.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -27,6 +29,7 @@ public class Game
     private ActivePlayersHandler playerHandler;
 
     private List<IField> fields;
+    private List<PlayerUIHandler> playerUIHandlers;
 
     public int FieldCount => fields.Count;
     public Player CurrentPlayer { get; private set; }
@@ -50,6 +53,11 @@ public class Game
         pointsNeeded = maxPoints;
     }
 
+    public void SetPlayerUIHandlers(List<PlayerUIHandler> playerUIHandlers)
+    {
+        this.playerUIHandlers = playerUIHandlers;
+    }
+
     public void HandlePointAchieved(PlayerCreed creed)
     {
         var player = playerHandler.GetPlayerByCreed(creed);
@@ -60,9 +68,21 @@ public class Game
     {
         if (player.AchievedPoints == pointsNeeded)
         {
-            playerHandler.IsEnabled = false;
-            OnVictory?.Invoke(player);
+            DeclareVictory(player);
         }
+    }
+
+    private void DeclareVictory(Player player)
+    {
+        playerHandler.IsEnabled = false;
+        OnVictory?.Invoke(player);
+
+        foreach (var uiHandler in playerUIHandlers)
+        {
+            uiHandler.Dispose();
+        }
+
+        playerUIHandlers = null;
     }
 
     private void MovePawn(Pawn pawn, int amount)
