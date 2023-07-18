@@ -478,6 +478,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeBoard: {fileID: 882023030}
+  player1Creed: 0
+  player2Creed: 2
+  player3Creed: 4
+  player4Creed: 4
+  player1Name: Mislav
+  player2Name: Alan
+  player3Name: 
+  player4Name: 
 --- !u!1001 &1024773317298001608
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,49 +1,43 @@
 using Assets.Scripts.Board;
 using Assets.Scripts.Gameplay;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 public enum PlayerCreed
 {
-    None,
     Red,
     Blue,
     Yellow,
     Green,
+    None,
 }
 
 public class Game
 {
     private IBoard board;
 
-    public static Game Instance { get; private set; } = new Game();
+    public static Game Instance { get; } = new();
 
-    private Game()
-    {
-        fields = board.GetFields();
+    private Game() { }
 
-        pointsAchieved = new Dictionary<PlayerCreed, int>()
-        {
-            { PlayerCreed.Red, 0 },
-            { PlayerCreed.Green, 0 },
-            { PlayerCreed.Blue, 0 },
-            { PlayerCreed.Yellow, 0 },
-        };
-    }
+    private int pointsNeeded = 4;
+    private readonly Dictionary<Player, int> pointsAchieved;
 
-    private readonly int pointsNeeded = 4;
-    private readonly Dictionary<PlayerCreed, int> pointsAchieved;
-
-    private PlayerCreed victor = PlayerCreed.None;
-    private PlayerCreed currentPlayer = PlayerCreed.Red;
     private ActivePlayersHandler playerHandler;
 
-    private readonly List<IField> fields;
+    private List<IField> fields;
 
     public int FieldCount => fields.Count;
+    public Player CurrentPlayer { get; private set; }
+
+    public delegate void HandleVictory(Player player);
+    public event HandleVictory OnVictory;
 
     public void SetBoard(IBoard board)
     {
         this.board = board;
+        fields = board.GetFields();
     }
 
     public void SetPlayerHandler(ActivePlayersHandler playerHandler)
@@ -51,17 +45,23 @@ public class Game
         this.playerHandler = playerHandler;
     }
 
-    public void HandlePointAchieved(PlayerCreed creed)
+    public void SetMaxPoints(int maxPoints)
     {
-        pointsAchieved[creed]++;
-        CheckVictoryCondition(creed);
+        pointsNeeded = maxPoints;
     }
 
-    private void CheckVictoryCondition(PlayerCreed creed)
+    public void HandlePointAchieved(PlayerCreed creed)
     {
-        if (pointsAchieved[creed] == pointsNeeded)
+        var player = playerHandler.GetPlayerByCreed(creed);
+        CheckVictoryCondition(player);
+    }
+
+    private void CheckVictoryCondition(Player player)
+    {
+        if (player.AchievedPoints == pointsNeeded)
         {
-            victor = creed;
+            playerHandler.IsEnabled = false;
+            OnVictory?.Invoke(player);
         }
     }
 
@@ -91,6 +91,10 @@ public class Game
 
     public void StartGame()
     {
-
+        foreach (var currentPlayer in playerHandler.GetNextPlayer())
+        {
+            CurrentPlayer = currentPlayer;
+            break;
+        }
     }
 }

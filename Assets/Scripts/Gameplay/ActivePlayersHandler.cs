@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Exceptions;
+using Assets.Scripts.Utils;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace Assets.Scripts.Gameplay
 {
@@ -8,52 +10,76 @@ namespace Assets.Scripts.Gameplay
     /// </summary>
     public class ActivePlayersHandler
     {
-        private List<PlayerCreed> players;
-        public bool IsEnabled { get; set; } = true;
+        private readonly Dictionary<PlayerCreed, Player> activePlayers = new();
 
-        private ActivePlayersHandler(List<PlayerCreed> selectedPlayers)
+        public bool IsEnabled { get; set; } = true;
+        public int PlayerCount => activePlayers.Count;
+
+        private ActivePlayersHandler(List<Player> selectedPlayers)
         {
-            players = selectedPlayers;
+            foreach (var player in selectedPlayers)
+            {
+                activePlayers.Add(player.Creed, player);
+            }
         }
 
-        public IEnumerable<PlayerCreed> ActivePlayers()
+        public Player GetPlayerByCreed(PlayerCreed creed)
+        {
+            if (activePlayers.TryGetValue(creed, out var player))
+            {
+                return player;
+            }
+            else
+            {
+                throw new InvalidCreedException($"Can't find player that is {creed.DisplayName()}!");
+            }
+        }
+
+        public IEnumerable<Player> GetNextPlayer()
         {
             int iterator = 0;
             while (IsEnabled)
             {
-                if (iterator == players.Count)
-                {
-                    iterator = 0;
-                }
-                yield return players[iterator++];
+                if (iterator == activePlayers.Count) iterator = 0;
+                yield return activePlayers[CreedSelector.GetCreedBasedOnIndex(iterator)];
             }
         }
 
         public class ActivePlayersHandlerBuilder
         {
-            private readonly List<PlayerCreed> enabledPlayers = new(new PlayerCreed[] { PlayerCreed.None, PlayerCreed.None, PlayerCreed.None, PlayerCreed.None });
+            private readonly List<Player> addedPlayers = new(4) { null, null, null, null };
 
-            public ActivePlayersHandlerBuilder SetPlayer1(PlayerCreed creed) => SetCreed(0, creed);
-            public ActivePlayersHandlerBuilder SetPlayer2(PlayerCreed creed) => SetCreed(1, creed);
-            public ActivePlayersHandlerBuilder SetPlayer3(PlayerCreed creed) => SetCreed(2, creed);
-            public ActivePlayersHandlerBuilder SetPlayer4(PlayerCreed creed) => SetCreed(3, creed);
-
-            private ActivePlayersHandlerBuilder SetCreed(int index, PlayerCreed creed)
+            public ActivePlayersHandlerBuilder SetPlayer(Player player)
             {
-                enabledPlayers[index] = creed;
+                int playerIndex = CreedSelector.GetIndexBasedOnCreed(player.Creed);
+
+                if (playerIndex != -1)
+                {
+                    if (addedPlayers[playerIndex] != null)
+                    {
+                        throw new InvalidPlayerException($"Player with creed {player.Creed} already set!");
+                    }
+
+                    addedPlayers.RemoveAt(playerIndex);
+                    addedPlayers.Insert(playerIndex, player);
+                }
                 return this;
             }
 
             public ActivePlayersHandler Build()
             {
-                enabledPlayers.RemoveAll(creed => creed == PlayerCreed.None);
+                addedPlayers.RemoveAll(player => player == null);
 
-                if (enabledPlayers.Count < 2)
+                if (addedPlayers.Count < 2)
                 {
-                    throw new NotEnoughPlayableCreedsException();
+                    throw new NotEnoughPlayersException();
+                }
+                if (addedPlayers.Exists(player => string.IsNullOrWhiteSpace(player.Name)))
+                {
+                    throw new InvalidPlayerException($"All players need to have names assigned to them!");
                 }
 
-                return new ActivePlayersHandler(enabledPlayers);
+                return new ActivePlayersHandler(addedPlayers);
             }
         }
     }
