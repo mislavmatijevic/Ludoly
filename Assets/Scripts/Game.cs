@@ -1,6 +1,6 @@
 using Assets.Scripts.Board;
+using Assets.Scripts.Gameplay;
 using System.Collections.Generic;
-using UnityEngine;
 
 public enum PlayerCreed
 {
@@ -11,14 +11,16 @@ public enum PlayerCreed
     Green,
 }
 
-public class Game : MonoBehaviour
+public class Game
 {
-    public IBoard board;
+    private IBoard board;
 
     public static Game Instance { get; private set; } = new Game();
 
     private Game()
     {
+        fields = board.GetFields();
+
         pointsAchieved = new Dictionary<PlayerCreed, int>()
         {
             { PlayerCreed.Red, 0 },
@@ -32,9 +34,22 @@ public class Game : MonoBehaviour
     private readonly Dictionary<PlayerCreed, int> pointsAchieved;
 
     private PlayerCreed victor = PlayerCreed.None;
-    private List<IField> fields;
+    private PlayerCreed currentPlayer = PlayerCreed.Red;
+    private ActivePlayersHandler playerHandler;
+
+    private readonly List<IField> fields;
 
     public int FieldCount => fields.Count;
+
+    public void SetBoard(IBoard board)
+    {
+        this.board = board;
+    }
+
+    public void SetPlayerHandler(ActivePlayersHandler playerHandler)
+    {
+        this.playerHandler = playerHandler;
+    }
 
     public void HandlePointAchieved(PlayerCreed creed)
     {
@@ -74,8 +89,8 @@ public class Game : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void StartGame()
     {
-        fields = board.GetFields();
+
     }
 }
