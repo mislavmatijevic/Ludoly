@@ -8,7 +8,7 @@
         {
             if (pawn.creed == ownership)
             {
-                Game.instance.HandlePointAchieved(pawn.creed);
+                Game.Instance.HandlePointAchieved(pawn.creed);
             }
 
             base.HandleArrival(pawn);

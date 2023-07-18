@@ -15,7 +15,8 @@ public class Game : MonoBehaviour
 {
     public IBoard board;
 
-    public static Game instance;
+    public static Game Instance { get; private set; } = new Game();
+
     private Game()
     {
         pointsAchieved = new Dictionary<PlayerCreed, int>()
