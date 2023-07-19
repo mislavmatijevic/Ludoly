@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using UnityEngine;
 
 public enum PlayerCreed
 {
@@ -109,11 +110,15 @@ public class Game
         }
     }
 
-    public void StartGame()
+    public async void StartGame(Dice dice)
     {
         foreach (var currentPlayer in playerHandler.GetNextPlayer())
         {
             CurrentPlayer = currentPlayer;
+            // Select pawn
+            int diceResult = await dice.RollDice();
+            Debug.Log(diceResult);
+            // MovePawn
             break;
         }
     }
