@@ -5,21 +5,33 @@ using UnityEngine;
 public class Dice : MonoBehaviour
 {
     private Rigidbody _diceRigidbody;
+    private Vector3 _startingPosition;
+    private Quaternion _startingRotation;
     private bool _isDiceRolling = false;
 
     private void Start()
     {
         _diceRigidbody = GetComponent<Rigidbody>();
+        _startingPosition = transform.position;
+        _startingRotation = transform.rotation;
     }
 
     public async Task<int> RollDice()
     {
+        MoveToStartingPosition();
+
         _ = StartCoroutine(ThrowDice());
         while (_isDiceRolling)
         {
             await Task.Yield();
         }
         return GetNumberFacingUp();
+    }
+
+    private void MoveToStartingPosition()
+    {
+        transform.position = _startingPosition;
+        transform.rotation = _startingRotation;
     }
 
     private IEnumerator ThrowDice()
