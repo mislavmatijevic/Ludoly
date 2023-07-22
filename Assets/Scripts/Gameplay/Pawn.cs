@@ -86,12 +86,7 @@ public class Pawn : MonoBehaviour
 
     internal void MoveToField(GameObject fieldObject)
     {
-        IField field = fieldObject.GetComponent<IField>();
-        if (field == null)
-        {
-            throw new InvalidFieldException();
-        }
-
+        _ = fieldObject.GetComponent<IField>() ?? throw new InvalidFieldException();
         Bounds pawnBounds = GetComponent<Renderer>().bounds;
 
         float pawnCenterPointHeight = (pawnBounds.max.y + pawnBounds.min.y) / 2;
