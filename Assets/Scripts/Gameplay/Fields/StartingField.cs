@@ -6,9 +6,9 @@
 
         public override void HandleArrival(Pawn pawn)
         {
-            if (pawn.creed == ownership)
+            if (pawn.Creed == ownership)
             {
-                Game.Instance.HandlePointAchieved(pawn.creed);
+                Game.Instance.HandlePointAchieved(pawn.Creed);
             }
 
             base.HandleArrival(pawn);

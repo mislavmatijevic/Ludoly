@@ -115,11 +115,21 @@ public class Game
         foreach (var currentPlayer in playerHandler.GetNextPlayer())
         {
             CurrentPlayer = currentPlayer;
-            // Select pawn
+            HighlightSelectablePawns();
+            Pawn selectedPawn = CurrentPlayer.SelectPawn(board.GetPawns(CurrentPlayer.Creed));
             int diceResult = await dice.RollDice();
             Debug.Log(diceResult);
             // MovePawn
             break;
+        }
+    }
+
+    private void HighlightSelectablePawns()
+    {
+        HashSet<Pawn> pawns = board.GetPawns(CurrentPlayer.Creed);
+        foreach (var pawn in pawns)
+        {
+            pawn.Highlight = true;
         }
     }
 }

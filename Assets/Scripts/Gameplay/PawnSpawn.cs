@@ -12,6 +12,10 @@ public class PawnSpawn : MonoBehaviour
     private void Start()
     {
         Pawns = GetComponentsInChildren<Pawn>().ToHashSet();
+        foreach (var pawn in Pawns)
+        {
+            pawn.GetComponent<Renderer>().material.color = spawnpointField.GetComponent<Renderer>().material.color;
+        }
     }
 
     private void Update()

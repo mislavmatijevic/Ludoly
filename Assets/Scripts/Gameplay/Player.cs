@@ -1,4 +1,8 @@
-﻿namespace Assets.Scripts.Gameplay
+﻿using System;
+using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
+
+namespace Assets.Scripts.Gameplay
 {
     public class Player
     {
@@ -13,6 +17,11 @@
         {
             Creed = creed;
             Name = name;
+        }
+
+        internal Pawn SelectPawn(HashSet<Pawn> pawns)
+        {
+            return pawns.GetEnumerator().Current;
         }
     }
 }
