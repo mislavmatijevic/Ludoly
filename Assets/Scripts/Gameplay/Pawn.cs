@@ -91,6 +91,15 @@ public class Pawn : MonoBehaviour
         {
             throw new InvalidFieldException();
         }
-        transform.position = fieldObject.transform.position;
+
+        Bounds pawnBounds = GetComponent<Renderer>().bounds;
+
+        float pawnCenterPointHeight = (pawnBounds.max.y + pawnBounds.min.y) / 2;
+
+        transform.position = new Vector3(
+            fieldObject.transform.position.x,
+            fieldObject.transform.position.y + pawnCenterPointHeight,
+            fieldObject.transform.position.z
+        );
     }
 }
