@@ -1,21 +1,40 @@
+using Assets.Scripts.Exceptions;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Pawn : MonoBehaviour
 {
     public PawnSpawn spawnPoint;
+    public Animator selectedAnimation;
 
     public PlayerCreed Creed { get; private set; }
     public bool IsAlive { get; set; } = true;
 
     private Vector3 startingPosition;
 
-    public int MovesMade { get; set; } = 0;
+    public int MovesMade { get; private set; } = 0;
     public bool Highlight
     {
         set
         {
             GetComponent<Light>().enabled = value;
+        }
+    }
+
+    public delegate void SelectionStateChange(Pawn pawn);
+    public event SelectionStateChange OnSelectionStateChanged;
+
+    private bool selected = false;
+    public bool Selected
+    {
+        get => selected;
+        set
+        {
+            if (Selectable)
+            {
+                selected = value;
+                selectedAnimation.enabled = value;
+                OnSelectionStateChanged?.Invoke(this);
+            }
         }
     }
 
@@ -28,6 +47,8 @@ public class Pawn : MonoBehaviour
         }
     }
 
+    public bool Selectable { get; set; } = false;
+
     private void Start()
     {
         startingPosition = transform.position;
@@ -39,10 +60,37 @@ public class Pawn : MonoBehaviour
 
     }
 
+    float doubleClickStart = 0;
+    private void OnMouseUp()
+    {
+        if (Selectable)
+        {
+            if ((Time.time - doubleClickStart) < 0.3f)
+            {
+                Selected = true;
+                doubleClickStart = -1;
+            }
+            else
+            {
+                doubleClickStart = Time.time;
+            }
+        }
+    }
+
     public void Die()
     {
         transform.position = startingPosition;
         IsAlive = false;
         MovesMade = 0;
+    }
+
+    internal void MoveToField(GameObject fieldObject)
+    {
+        IField field = fieldObject.GetComponent<IField>();
+        if (field == null)
+        {
+            throw new InvalidFieldException();
+        }
+        transform.position = fieldObject.transform.position;
     }
 }

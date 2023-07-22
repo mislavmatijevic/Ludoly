@@ -3,6 +3,7 @@ using Assets.Scripts.Gameplay;
 using Assets.Scripts.UI;
 using Assets.Scripts.Utils;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public enum PlayerCreed
@@ -109,7 +110,7 @@ public class Game
                 i = 0;
             }
 
-            fields[i].HandleArrival(pawn);
+            fields[i].HandleMovingToOwnPosition(pawn);
             if (!pawn.IsAlive)
             {
                 break;
@@ -122,23 +123,21 @@ public class Game
         foreach (var currentPlayer in playerHandler.GetNextPlayer())
         {
             OnMessageEvent?.Invoke(GameResources.STR_DiceRolling);
-            CurrentPlayer = currentPlayer;
-            HighlightSelectablePawns();
-            Pawn selectedPawn = CurrentPlayer.SelectPawn(board.GetPawns(CurrentPlayer.Creed));
             int diceResult = await dice.RollDice();
+            CurrentPlayer = currentPlayer;
             OnMessageEvent?.Invoke(GameResources.STR_GetDiceResultMsg(diceResult, CurrentPlayer));
-            Debug.Log(diceResult);
-            // MovePawn
-            break;
+            Pawn selectedPawn = await GetSelectedPawnAsync(CurrentPlayer);
+            MovePawn(selectedPawn, diceResult);
         }
     }
 
-    private void HighlightSelectablePawns()
+    private async Task<Pawn> GetSelectedPawnAsync(Player player)
     {
-        HashSet<Pawn> pawns = board.GetPawns(CurrentPlayer.Creed);
+        HashSet<Pawn> pawns = board.GetPawns(player.Creed);
         foreach (var pawn in pawns)
         {
             pawn.Highlight = true;
         }
+        return await player.SelectOnePawnAsync(board.GetPawns(CurrentPlayer.Creed));
     }
 }

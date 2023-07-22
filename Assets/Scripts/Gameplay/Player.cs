@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Assets.Scripts.Gameplay
 {
@@ -19,9 +18,26 @@ namespace Assets.Scripts.Gameplay
             Name = name;
         }
 
-        internal Pawn SelectPawn(HashSet<Pawn> pawns)
+        public async Task<Pawn> SelectOnePawnAsync(HashSet<Pawn> pawns)
         {
-            return pawns.GetEnumerator().Current;
+            Pawn selectedPawn = null;
+            await Task.Run(() =>
+            {
+                foreach (Pawn p in pawns)
+                {
+                    p.Selectable = true;
+                    p.OnSelectionStateChanged += delegate
+                    {
+                        selectedPawn = p;
+                        foreach (var nonSelectedPawn in pawns)
+                        {
+                            if (nonSelectedPawn != selectedPawn) nonSelectedPawn.Selected = false;
+                        }
+                    };
+                }
+                while (selectedPawn == null) Task.Yield();
+            });
+            return selectedPawn;
         }
     }
 }

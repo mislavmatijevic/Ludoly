@@ -1,4 +1,4 @@
 public interface IField
 {
-    void HandleArrival(Pawn pawn);
+    void HandleMovingToOwnPosition(Pawn pawn);
 }
