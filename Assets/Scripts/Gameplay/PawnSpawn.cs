@@ -1,25 +1,22 @@
+using Assets.Scripts.Board.Fields;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class PawnSpawn : MonoBehaviour
 {
-    public PlayerCreed creed;
-    public GameObject spawnpointField;
+    public StartingField SpawnpointField;
 
     public HashSet<Pawn> Pawns { get; private set; }
+    public PlayerCreed Creed { get; set; }
 
     private void Start()
     {
         Pawns = GetComponentsInChildren<Pawn>().ToHashSet();
-        foreach (var pawn in Pawns)
+        foreach (Pawn pawn in Pawns)
         {
-            pawn.Color = spawnpointField.GetComponent<Renderer>().material.color;
+            pawn.Color = SpawnpointField.GetComponent<Renderer>().material.color;
         }
-    }
-
-    private void Update()
-    {
-
+        Creed = SpawnpointField.Ownership;
     }
 }

@@ -29,13 +29,19 @@ namespace Assets.Scripts.Gameplay
                     p.OnSelectionStateChanged += delegate
                     {
                         selectedPawn = p;
-                        foreach (var nonSelectedPawn in pawns)
+                        foreach (Pawn nonSelectedPawn in pawns)
                         {
-                            if (nonSelectedPawn != selectedPawn) nonSelectedPawn.Selected = false;
+                            if (nonSelectedPawn != selectedPawn)
+                            {
+                                nonSelectedPawn.Selected = false;
+                            }
                         }
                     };
                 }
-                while (selectedPawn == null) Task.Yield();
+                while (selectedPawn == null)
+                {
+                    _ = Task.Yield();
+                }
             });
             return selectedPawn;
         }

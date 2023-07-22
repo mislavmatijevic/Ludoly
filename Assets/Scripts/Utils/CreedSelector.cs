@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Exceptions;
-using System;
 
 namespace Assets.Scripts.Utils
 {

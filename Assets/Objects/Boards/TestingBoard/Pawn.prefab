@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c61eb441d653346b33f05a40d270fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
-  selectedAnimation: {fileID: 8170324313079281413}
+  SpawnPoint: {fileID: 0}
+  OnActiveAnimation: {fileID: 8170324313079281413}
 --- !u!108 &4479570977358009763
 Light:
   m_ObjectHideFlags: 0

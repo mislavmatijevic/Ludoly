@@ -5,36 +5,36 @@ using UnityEngine;
 
 namespace Assets.Scripts.Gameplay.Boards
 {
-    internal class DefaultBoard : MonoBehaviour, IBoard
+    public class DefaultBoard : MonoBehaviour, IBoard
     {
-        private List<IField> fields;
-        public PawnSpawn redPawnSpawn;
-        public PawnSpawn bluePawnSpawn;
-        public PawnSpawn yellowPawnSpawn;
-        public PawnSpawn greenPawnSpawn;
+        public PawnSpawn RedPawnSpawn;
+        public PawnSpawn BluePawnSpawn;
+        public PawnSpawn YellowPawnSpawn;
+        public PawnSpawn GreenPawnSpawn;
 
-        public Dictionary<PlayerCreed, PawnSpawn> pawnSpawns;
+        private List<IField> _fields;
+        public Dictionary<PlayerCreed, PawnSpawn> PawnSpawns { get; set; }
 
         private void Start()
         {
-            fields = GetComponentsInChildren<IField>().ToList();
-            pawnSpawns = new Dictionary<PlayerCreed, PawnSpawn>()
+            _fields = GetComponentsInChildren<IField>().ToList();
+            PawnSpawns = new Dictionary<PlayerCreed, PawnSpawn>()
             {
-                {PlayerCreed.Red, redPawnSpawn },
-                {PlayerCreed.Blue, bluePawnSpawn },
-                {PlayerCreed.Yellow, yellowPawnSpawn },
-                {PlayerCreed.Green, greenPawnSpawn }
+                {PlayerCreed.Red, RedPawnSpawn },
+                {PlayerCreed.Blue, BluePawnSpawn },
+                {PlayerCreed.Yellow, YellowPawnSpawn },
+                {PlayerCreed.Green, GreenPawnSpawn }
             };
         }
 
         public List<IField> GetFields()
         {
-            return fields;
+            return _fields;
         }
 
         public HashSet<Pawn> GetPawns(PlayerCreed creed)
         {
-            return pawnSpawns[creed].Pawns;
+            return PawnSpawns[creed].Pawns;
         }
     }
 }

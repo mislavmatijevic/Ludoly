@@ -1,12 +1,12 @@
 ﻿namespace Assets.Scripts.Board.Fields
 {
-    internal class StartingField : NormalField
+    public class StartingField : NormalField
     {
-        public PlayerCreed ownership;
+        public PlayerCreed Ownership;
 
         public override void HandleMovingToOwnPosition(Pawn pawn)
         {
-            if (pawn.Creed == ownership)
+            if (pawn.Creed == Ownership)
             {
                 Game.Instance.HandlePointAchieved(pawn.Creed);
             }

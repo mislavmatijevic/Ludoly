@@ -3,21 +3,19 @@ using UnityEngine;
 
 public class Pawn : MonoBehaviour
 {
-    public PawnSpawn spawnPoint;
-    public Animator selectedAnimation;
+    public PawnSpawn SpawnPoint;
+    public Animator OnActiveAnimation;
 
     public PlayerCreed Creed { get; private set; }
     public bool IsAlive { get; set; } = true;
 
-    private Vector3 startingPosition;
+    private Vector3 _startingPosition;
 
     public int MovesMade { get; private set; } = 0;
+
     public bool Highlight
     {
-        set
-        {
-            GetComponent<Light>().enabled = value;
-        }
+        set => GetComponent<Light>().enabled = value;
     }
 
     public delegate void SelectionStateChange(Pawn pawn);
@@ -32,7 +30,7 @@ public class Pawn : MonoBehaviour
             if (Selectable)
             {
                 selected = value;
-                selectedAnimation.enabled = value;
+                OnActiveAnimation.enabled = value;
                 OnSelectionStateChanged?.Invoke(this);
             }
         }
@@ -51,8 +49,8 @@ public class Pawn : MonoBehaviour
 
     private void Start()
     {
-        startingPosition = transform.position;
-        Creed = spawnPoint.creed;
+        _startingPosition = transform.position;
+        Creed = SpawnPoint.Creed;
     }
 
     private void Update()
@@ -60,26 +58,26 @@ public class Pawn : MonoBehaviour
 
     }
 
-    float doubleClickStart = 0;
+    private float _doubleClickStart = 0;
     private void OnMouseUp()
     {
         if (Selectable)
         {
-            if ((Time.time - doubleClickStart) < 0.3f)
+            if ((Time.time - _doubleClickStart) < 0.3f)
             {
                 Selected = true;
-                doubleClickStart = -1;
+                _doubleClickStart = -1;
             }
             else
             {
-                doubleClickStart = Time.time;
+                _doubleClickStart = Time.time;
             }
         }
     }
 
     public void Die()
     {
-        transform.position = startingPosition;
+        transform.position = _startingPosition;
         IsAlive = false;
         MovesMade = 0;
     }

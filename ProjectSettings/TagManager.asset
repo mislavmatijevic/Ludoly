@@ -6,6 +6,8 @@ TagManager:
   tags:
   - FieldTag
   - PawnSpawnTag
+  - UIPlayerNameTag
+  - UIPlayerPointsTag
   layers:
   - Default
   - TransparentFX

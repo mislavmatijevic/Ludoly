@@ -4,7 +4,6 @@ using Assets.Scripts.UI;
 using Assets.Scripts.Utils;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public enum PlayerCreed
 {
@@ -17,22 +16,20 @@ public enum PlayerCreed
 
 public class Game
 {
-    private IBoard board;
-
     public static Game Instance { get; } = new();
 
     private Game() { }
 
-    private int pointsNeeded = 4;
-    private readonly Dictionary<Player, int> pointsAchieved;
+    private int _pointsNeeded = 4;
 
-    private ActivePlayersHandler playerHandler;
+    private ActivePlayersHandler _playerHandler;
 
-    private List<IField> fields;
-    private List<PlayerUIHandler> playerUIHandlers;
-    private GameLogUIHandler gameLogUIHandler;
+    private IBoard _board;
+    private List<IField> _fields;
+    private List<PlayerUIHandler> _playerUIHandlers;
+    private GameLogUIHandler _gameLogUIHandler;
 
-    public int FieldCount => fields.Count;
+    public int FieldCount => _fields.Count;
     public Player CurrentPlayer { get; private set; }
 
     public delegate void HandleVictory(Player player);
@@ -43,39 +40,39 @@ public class Game
 
     public void SetBoard(IBoard board)
     {
-        this.board = board;
-        fields = board.GetFields();
+        _board = board;
+        _fields = board.GetFields();
     }
 
     public void SetPlayerHandler(ActivePlayersHandler playerHandler)
     {
-        this.playerHandler = playerHandler;
+        _playerHandler = playerHandler;
     }
 
     public void SetMaxPoints(int maxPoints)
     {
-        pointsNeeded = maxPoints;
+        _pointsNeeded = maxPoints;
     }
 
     public void SetPlayerUIHandlers(List<PlayerUIHandler> playerUIHandlers)
     {
-        this.playerUIHandlers = playerUIHandlers;
+        _playerUIHandlers = playerUIHandlers;
     }
 
     public void SetLogTextHandler(GameLogUIHandler gameLogUIHandler)
     {
-        this.gameLogUIHandler = gameLogUIHandler;
+        _gameLogUIHandler = gameLogUIHandler;
     }
 
     public void HandlePointAchieved(PlayerCreed creed)
     {
-        var player = playerHandler.GetPlayerByCreed(creed);
+        Player player = _playerHandler.GetPlayerByCreed(creed);
         CheckVictoryCondition(player);
     }
 
     private void CheckVictoryCondition(Player player)
     {
-        if (player.AchievedPoints == pointsNeeded)
+        if (player.AchievedPoints == _pointsNeeded)
         {
             DeclareVictory(player);
         }
@@ -83,15 +80,15 @@ public class Game
 
     private void DeclareVictory(Player player)
     {
-        playerHandler.IsEnabled = false;
+        _playerHandler.IsEnabled = false;
         OnVictory?.Invoke(player);
 
-        foreach (var uiHandler in playerUIHandlers)
+        foreach (PlayerUIHandler uiHandler in _playerUIHandlers)
         {
             uiHandler.Dispose();
         }
 
-        playerUIHandlers = null;
+        _playerUIHandlers = null;
     }
 
     private void MovePawn(Pawn pawn, int amount)
@@ -110,7 +107,7 @@ public class Game
                 i = 0;
             }
 
-            fields[i].HandleMovingToOwnPosition(pawn);
+            _fields[i].HandleMovingToOwnPosition(pawn);
             if (!pawn.IsAlive)
             {
                 break;
@@ -120,7 +117,7 @@ public class Game
 
     public async void PlayGame(Dice dice)
     {
-        foreach (var currentPlayer in playerHandler.GetNextPlayer())
+        foreach (Player currentPlayer in _playerHandler.GetNextPlayer())
         {
             OnMessageEvent?.Invoke(GameResources.STR_DiceRolling);
             int diceResult = await dice.RollDice();
@@ -133,11 +130,11 @@ public class Game
 
     private async Task<Pawn> GetSelectedPawnAsync(Player player)
     {
-        HashSet<Pawn> pawns = board.GetPawns(player.Creed);
-        foreach (var pawn in pawns)
+        HashSet<Pawn> pawns = _board.GetPawns(player.Creed);
+        foreach (Pawn pawn in pawns)
         {
             pawn.Highlight = true;
         }
-        return await player.SelectOnePawnAsync(board.GetPawns(CurrentPlayer.Creed));
+        return await player.SelectOnePawnAsync(_board.GetPawns(CurrentPlayer.Creed));
     }
 }

@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 110400288}
   m_Layer: 5
   m_Name: GreenPlayerNameText
-  m_TagString: Untagged
+  m_TagString: UIPlayerNameTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 401517693}
   m_Layer: 5
   m_Name: YellowPlayerPointsText
-  m_TagString: Untagged
+  m_TagString: UIPlayerPointsTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -766,7 +766,7 @@ GameObject:
   - component: {fileID: 471814144}
   m_Layer: 5
   m_Name: BluePlayerPointsText
-  m_TagString: Untagged
+  m_TagString: UIPlayerPointsTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1065,7 +1065,7 @@ GameObject:
   - component: {fileID: 689272371}
   m_Layer: 5
   m_Name: RedPlayerNameText
-  m_TagString: Untagged
+  m_TagString: UIPlayerNameTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1278,7 +1278,7 @@ GameObject:
   - component: {fileID: 973713090}
   m_Layer: 5
   m_Name: RedPlayerPointsText
-  m_TagString: Untagged
+  m_TagString: UIPlayerPointsTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1435,7 +1435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -598.6, y: -205.70001}
+  m_AnchoredPosition: {x: -598.60004, y: -205.70001}
   m_SizeDelta: {x: 2.8000488, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1031792778
@@ -1489,7 +1489,7 @@ GameObject:
   - component: {fileID: 1051800322}
   m_Layer: 5
   m_Name: BluePlayerNameText
-  m_TagString: Untagged
+  m_TagString: UIPlayerNameTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1700,7 +1700,7 @@ GameObject:
   - component: {fileID: 1242923573}
   m_Layer: 5
   m_Name: GreenPlayerPointsText
-  m_TagString: Untagged
+  m_TagString: UIPlayerPointsTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2110,7 +2110,7 @@ GameObject:
   - component: {fileID: 2063425162}
   m_Layer: 5
   m_Name: YellowPlayerNameText
-  m_TagString: Untagged
+  m_TagString: UIPlayerNameTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2275,25 +2275,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0797a0e9e279d384b9c4914da2635514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeBoard: {fileID: 882023030}
-  player1Creed: 0
-  player2Creed: 2
-  player3Creed: 4
-  player4Creed: 4
-  player1Name: Mislav
-  player2Name: Alan
-  player3Name: 
-  player4Name: 
-  playerRedNameTMP: {fileID: 689272371}
-  playerBlueNameTMP: {fileID: 1051800322}
-  playerYellowNameTMP: {fileID: 2063425162}
-  playerGreenNameTMP: {fileID: 110400288}
-  playerRedPointsTMP: {fileID: 973713090}
-  playerBluePointsTMP: {fileID: 471814144}
-  playerYellowPointsTMP: {fileID: 401517693}
-  playerGreenPointsTMP: {fileID: 1242923573}
-  dice: {fileID: 1420430096}
-  gameLogText: {fileID: 1805934602}
+  ActiveBoard: {fileID: 882023030}
+  Player1Creed: 0
+  Player2Creed: 2
+  Player3Creed: 4
+  Player4Creed: 4
+  Player1Name: Mislav
+  Player2Name: Alan
+  Player3Name: 
+  Player4Name: 
+  PlayerRedCanvas: {fileID: 1133568465}
+  PlayerBlueCanvas: {fileID: 2139080599}
+  PlayerYellowCanvas: {fileID: 1031792779}
+  PlayerGreenCanvas: {fileID: 605826574}
+  Dice: {fileID: 1420430096}
+  GameLogText: {fileID: 1805934602}
 --- !u!1 &2139080596
 GameObject:
   m_ObjectHideFlags: 0
@@ -2330,7 +2326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -597.8999, y: 314.7}
+  m_AnchoredPosition: {x: -597.89984, y: 314.7}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2139080598

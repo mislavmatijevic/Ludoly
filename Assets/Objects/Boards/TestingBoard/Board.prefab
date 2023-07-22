@@ -1920,7 +1920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229a72b7a11c3e948ae93d233700301f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownership: 2
+  Ownership: 2
 --- !u!1 &4742040972131484618
 GameObject:
   m_ObjectHideFlags: 0
@@ -2761,7 +2761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229a72b7a11c3e948ae93d233700301f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownership: 1
+  Ownership: 1
 --- !u!1 &6131533125096904526
 GameObject:
   m_ObjectHideFlags: 0
@@ -2917,10 +2917,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78335af82efed3c4ab9b6d73d09f8a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redPawnSpawn: {fileID: 0}
-  bluePawnSpawn: {fileID: 0}
-  yellowPawnSpawn: {fileID: 0}
-  greenPawnSpawn: {fileID: 0}
+  RedPawnSpawn: {fileID: 2040645120714628859}
+  BluePawnSpawn: {fileID: 5412667485085822069}
+  YellowPawnSpawn: {fileID: 3182756686106950792}
+  GreenPawnSpawn: {fileID: 7998456451830449239}
 --- !u!1 &6161199235852875131
 GameObject:
   m_ObjectHideFlags: 0
@@ -3281,7 +3281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229a72b7a11c3e948ae93d233700301f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownership: 3
+  Ownership: 3
 --- !u!1 &7159875998338032673
 GameObject:
   m_ObjectHideFlags: 0
@@ -3882,7 +3882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229a72b7a11c3e948ae93d233700301f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownership: 0
+  Ownership: 0
 --- !u!1 &9158992189751900453
 GameObject:
   m_ObjectHideFlags: 0
@@ -4011,10 +4011,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6129619485878835006}
     m_Modifications:
+    - target: {fileID: 3004669983984658010, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 5412667485085822069}
+    - target: {fileID: 3323058446871080407, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 5412667485085822069}
     - target: {fileID: 4561055976763327899, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: m_Name
       value: PawnSpawnBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: Creed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
@@ -4023,9 +4038,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
+      propertyPath: SpawnpointField
+      value: 
+      objectReference: {fileID: 3679796013685527080}
+    - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
       propertyPath: spawnpointField
       value: 
       objectReference: {fileID: 5913637133903409965}
+    - target: {fileID: 8443356219809316681, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 5412667485085822069}
     - target: {fileID: 8701929094872184217, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -4086,11 +4111,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9189619283754743592, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 5412667485085822069}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 902f42a3db8eb4043bca02456bcf0722, type: 3}
+--- !u!114 &5412667485085822069 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
+    type: 3}
+  m_PrefabInstance: {fileID: 2165472418323166114}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000dabc49747fa44d8495d96a84b8993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7407924239349630523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8701929094872184217, guid: 902f42a3db8eb4043bca02456bcf0722,
@@ -4110,11 +4152,21 @@ PrefabInstance:
       propertyPath: creed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3004669983984658010, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 7998456451830449239}
     - target: {fileID: 3323058446871080407, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: creed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3323058446871080407, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 7998456451830449239}
     - target: {fileID: 4561055976763327899, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: m_Name
@@ -4122,9 +4174,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
+      propertyPath: Creed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
       propertyPath: creed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnpointField
+      value: 
+      objectReference: {fileID: 294246562378155244}
     - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: spawnpointField
@@ -4135,6 +4197,11 @@ PrefabInstance:
       propertyPath: creed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8443356219809316681, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 7998456451830449239}
     - target: {fileID: 8701929094872184217, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -4200,6 +4267,11 @@ PrefabInstance:
       propertyPath: creed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 9189619283754743592, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 7998456451830449239}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4211,6 +4283,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4184086038662028160}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7998456451830449239 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
+    type: 3}
+  m_PrefabInstance: {fileID: 4184086038662028160}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000dabc49747fa44d8495d96a84b8993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5278559863037903148
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4219,6 +4303,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6129619485878835006}
     m_Modifications:
+    - target: {fileID: 3004669983984658010, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 2040645120714628859}
+    - target: {fileID: 3323058446871080407, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 2040645120714628859}
     - target: {fileID: 4561055976763327899, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: m_Name
@@ -4231,9 +4325,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
+      propertyPath: SpawnpointField
+      value: 
+      objectReference: {fileID: 797319505324281553}
+    - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
       propertyPath: spawnpointField
       value: 
       objectReference: {fileID: 8788397063274569902}
+    - target: {fileID: 8443356219809316681, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 2040645120714628859}
     - target: {fileID: 8701929094872184217, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -4294,11 +4398,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9189619283754743592, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 2040645120714628859}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 902f42a3db8eb4043bca02456bcf0722, type: 3}
+--- !u!114 &2040645120714628859 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
+    type: 3}
+  m_PrefabInstance: {fileID: 5278559863037903148}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000dabc49747fa44d8495d96a84b8993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3567484577012020405 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8701929094872184217, guid: 902f42a3db8eb4043bca02456bcf0722,
@@ -4318,11 +4439,21 @@ PrefabInstance:
       propertyPath: creed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3004669983984658010, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 3182756686106950792}
     - target: {fileID: 3323058446871080407, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: creed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3323058446871080407, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 3182756686106950792}
     - target: {fileID: 4561055976763327899, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: m_Name
@@ -4330,9 +4461,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
+      propertyPath: Creed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
       propertyPath: creed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnpointField
+      value: 
+      objectReference: {fileID: 6742186824621222052}
     - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: spawnpointField
@@ -4343,6 +4484,11 @@ PrefabInstance:
       propertyPath: creed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8443356219809316681, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 3182756686106950792}
     - target: {fileID: 8701929094872184217, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -4408,6 +4554,11 @@ PrefabInstance:
       propertyPath: creed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9189619283754743592, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 3182756686106950792}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4419,3 +4570,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8735727090553414495}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3182756686106950792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
+    type: 3}
+  m_PrefabInstance: {fileID: 8735727090553414495}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000dabc49747fa44d8495d96a84b8993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

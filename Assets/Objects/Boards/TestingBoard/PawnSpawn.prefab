@@ -123,8 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000dabc49747fa44d8495d96a84b8993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creed: 4
-  spawnpointField: {fileID: 0}
+  SpawnpointField: {fileID: 0}
 --- !u!1001 &3610136405585373684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -193,6 +192,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5131029691742721725, guid: 4efd56aa752877f43b1aa4fba3795c5d,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 6129651802667622359}
     - target: {fileID: 5131029691742721725, guid: 4efd56aa752877f43b1aa4fba3795c5d,
         type: 3}
       propertyPath: spawnPoint
@@ -272,6 +276,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5131029691742721725, guid: 4efd56aa752877f43b1aa4fba3795c5d,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 6129651802667622359}
     - target: {fileID: 5131029691742721725, guid: 4efd56aa752877f43b1aa4fba3795c5d,
         type: 3}
       propertyPath: spawnPoint
@@ -363,6 +372,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5131029691742721725, guid: 4efd56aa752877f43b1aa4fba3795c5d,
         type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 6129651802667622359}
+    - target: {fileID: 5131029691742721725, guid: 4efd56aa752877f43b1aa4fba3795c5d,
+        type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 6129651802667622359}
@@ -450,6 +464,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5131029691742721725, guid: 4efd56aa752877f43b1aa4fba3795c5d,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 6129651802667622359}
     - target: {fileID: 5131029691742721725, guid: 4efd56aa752877f43b1aa4fba3795c5d,
         type: 3}
       propertyPath: spawnPoint

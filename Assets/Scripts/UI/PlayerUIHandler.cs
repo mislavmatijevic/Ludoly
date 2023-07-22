@@ -1,50 +1,64 @@
 ﻿using Assets.Scripts.Gameplay;
 using System;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Utils
 {
     public class PlayerUIHandler : IDisposable
     {
-        private readonly Player player;
-        private readonly TextMeshProUGUI textName;
-        private readonly TextMeshProUGUI textPoints;
+        private readonly Player _player;
+        private readonly TextMeshProUGUI _textName;
+        private readonly TextMeshProUGUI _textPoints;
 
-        public PlayerUIHandler(Player player, TextMeshProUGUI textName, TextMeshProUGUI textPoints)
+        public PlayerUIHandler(Player player, CanvasRenderer playerCanvasRenderer)
         {
-            this.player = player;
-            this.textName = textName;
-            this.textPoints = textPoints;
+            _player = player;
+
+            foreach (TextMeshProUGUI textMesh in playerCanvasRenderer.GetComponentsInChildren<TextMeshProUGUI>())
+            {
+                if (textMesh.CompareTag("UIPlayerNameTag"))
+                {
+                    _textName = textMesh;
+                }
+                else if (textMesh.CompareTag("UIPlayerPointsTag"))
+                {
+                    _textPoints = textMesh;
+                }
+            }
 
             Setup();
         }
 
         private void Setup()
         {
-            if (player != null && player?.Creed != PlayerCreed.None)
+            if (_player != null && _player?.Creed != PlayerCreed.None)
             {
-                textName.text = player.Name;
-                textPoints.text = player.AchievedPoints.ToString();
-                player.OnPointAchieved += Player_OnPointAchieved;
+                _textName.text = _player.Name;
+                _textPoints.text = _player.AchievedPoints.ToString();
+                _player.OnPointAchieved += Player_OnPointAchieved;
             }
             else
             {
-                textName.text = "";
-                textPoints.text = "";
-                var image = textName.GetComponentInParent<Image>();
+                _textName.text = "";
+                _textPoints.text = "";
+                Image image = _textName.GetComponentInParent<Image>();
                 image.enabled = false;
             }
         }
 
         private void Player_OnPointAchieved()
         {
-            textPoints.text = player.AchievedPoints.ToString();
+            _textPoints.text = _player.AchievedPoints.ToString();
         }
 
         public void Dispose()
         {
-            if (player.Creed != PlayerCreed.None) player.OnPointAchieved -= Player_OnPointAchieved;
+            if (_player.Creed != PlayerCreed.None)
+            {
+                _player.OnPointAchieved -= Player_OnPointAchieved;
+            }
         }
     }
 }

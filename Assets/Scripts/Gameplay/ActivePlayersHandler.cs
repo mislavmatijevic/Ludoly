@@ -10,29 +10,24 @@ namespace Assets.Scripts.Gameplay
     /// </summary>
     public class ActivePlayersHandler
     {
-        private readonly Dictionary<PlayerCreed, Player> activePlayers = new();
+        private readonly Dictionary<PlayerCreed, Player> _activePlayers = new();
 
         public bool IsEnabled { get; set; } = true;
-        public int PlayerCount => activePlayers.Count;
+        public int PlayerCount => _activePlayers.Count;
 
         private ActivePlayersHandler(List<Player> selectedPlayers)
         {
-            foreach (var player in selectedPlayers)
+            foreach (Player player in selectedPlayers)
             {
-                activePlayers.Add(player.Creed, player);
+                _activePlayers.Add(player.Creed, player);
             }
         }
 
         public Player GetPlayerByCreed(PlayerCreed creed)
         {
-            if (activePlayers.TryGetValue(creed, out var player))
-            {
-                return player;
-            }
-            else
-            {
-                throw new InvalidCreedException($"Can't find player that is {creed.DisplayName()}!");
-            }
+            return _activePlayers.TryGetValue(creed, out Player player)
+                ? player
+                : throw new InvalidCreedException($"Can't find player that is {creed.DisplayName()}!");
         }
 
         public IEnumerable<Player> GetNextPlayer()
@@ -40,8 +35,12 @@ namespace Assets.Scripts.Gameplay
             int iterator = 0;
             while (IsEnabled)
             {
-                if (iterator == activePlayers.Count) iterator = 0;
-                yield return activePlayers[CreedSelector.GetCreedBasedOnIndex(iterator)];
+                if (iterator == _activePlayers.Count)
+                {
+                    iterator = 0;
+                }
+
+                yield return _activePlayers[CreedSelector.GetCreedBasedOnIndex(iterator)];
             }
         }
 
@@ -68,18 +67,13 @@ namespace Assets.Scripts.Gameplay
 
             public ActivePlayersHandler Build()
             {
-                addedPlayers.RemoveAll(player => player == null);
+                _ = addedPlayers.RemoveAll(player => player == null);
 
-                if (addedPlayers.Count < 2)
-                {
-                    throw new NotEnoughPlayersException();
-                }
-                if (addedPlayers.Exists(player => string.IsNullOrWhiteSpace(player.Name)))
-                {
-                    throw new InvalidPlayerException($"All players need to have names assigned to them!");
-                }
-
-                return new ActivePlayersHandler(addedPlayers);
+                return addedPlayers.Count < 2
+                    ? throw new NotEnoughPlayersException()
+                    : addedPlayers.Exists(player => string.IsNullOrWhiteSpace(player.Name))
+                    ? throw new InvalidPlayerException($"All players need to have names assigned to them!")
+                    : new ActivePlayersHandler(addedPlayers);
             }
         }
     }

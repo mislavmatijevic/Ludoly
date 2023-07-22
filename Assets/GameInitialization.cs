@@ -8,56 +8,51 @@ using UnityEngine;
 
 public class GameInitialization : MonoBehaviour
 {
-    public GameObject activeBoard;
-    public PlayerCreed player1Creed = PlayerCreed.Red;
-    public PlayerCreed player2Creed = PlayerCreed.Yellow;
-    public PlayerCreed player3Creed = PlayerCreed.None;
-    public PlayerCreed player4Creed = PlayerCreed.None;
+    public GameObject ActiveBoard;
+    public PlayerCreed Player1Creed = PlayerCreed.Red;
+    public PlayerCreed Player2Creed = PlayerCreed.Yellow;
+    public PlayerCreed Player3Creed = PlayerCreed.None;
+    public PlayerCreed Player4Creed = PlayerCreed.None;
 
-    public string player1Name = "";
-    public string player2Name = "";
-    public string player3Name = "";
-    public string player4Name = "";
+    public string Player1Name = "";
+    public string Player2Name = "";
+    public string Player3Name = "";
+    public string Player4Name = "";
 
-    public TextMeshProUGUI playerRedNameTMP;
-    public TextMeshProUGUI playerBlueNameTMP;
-    public TextMeshProUGUI playerYellowNameTMP;
-    public TextMeshProUGUI playerGreenNameTMP;
+    public CanvasRenderer PlayerRedCanvas;
+    public CanvasRenderer PlayerBlueCanvas;
+    public CanvasRenderer PlayerYellowCanvas;
+    public CanvasRenderer PlayerGreenCanvas;
 
-    public TextMeshProUGUI playerRedPointsTMP;
-    public TextMeshProUGUI playerBluePointsTMP;
-    public TextMeshProUGUI playerYellowPointsTMP;
-    public TextMeshProUGUI playerGreenPointsTMP;
-
-    public Dice dice;
-    public TextMeshProUGUI gameLogText;
+    public Dice Dice;
+    public TextMeshProUGUI GameLogText;
 
     /// <summary>
     /// Sets up the main Game singleton object and starts the game.
     /// </summary>
-    void Start()
+    private void Start()
     {
-        Game.Instance.SetBoard(activeBoard.GetComponent<IBoard>());
+        Game.Instance.SetBoard(ActiveBoard.GetComponent<IBoard>());
 
-        List<Player> playerList = new() { new(player1Creed, player1Name), new(player2Creed, player2Name), new(player3Creed, player3Name), new(player4Creed, player4Name) };
+        List<Player> PlayerList = new() { new(Player1Creed, Player1Name), new(Player2Creed, Player2Name), new(Player3Creed, Player3Name), new(Player4Creed, Player4Name) };
 
-        PlayerUIHandler playerRedUi = new(playerList.Find(player => player.Creed == PlayerCreed.Red), playerRedNameTMP, playerRedPointsTMP);
-        PlayerUIHandler playerBlueUi = new(playerList.Find(player => player.Creed == PlayerCreed.Blue), playerBlueNameTMP, playerBluePointsTMP);
-        PlayerUIHandler playerYellowUi = new(playerList.Find(player => player.Creed == PlayerCreed.Yellow), playerYellowNameTMP, playerYellowPointsTMP);
-        PlayerUIHandler playerGreenUi = new(playerList.Find(player => player.Creed == PlayerCreed.Green), playerGreenNameTMP, playerGreenPointsTMP);
+        PlayerUIHandler PlayerRedUi = new(PlayerList.Find(Player => Player.Creed == PlayerCreed.Red), PlayerRedCanvas);
+        PlayerUIHandler PlayerBlueUi = new(PlayerList.Find(Player => Player.Creed == PlayerCreed.Blue), PlayerBlueCanvas);
+        PlayerUIHandler PlayerYellowUi = new(PlayerList.Find(Player => Player.Creed == PlayerCreed.Yellow), PlayerYellowCanvas);
+        PlayerUIHandler PlayerGreenUi = new(PlayerList.Find(Player => Player.Creed == PlayerCreed.Green), PlayerGreenCanvas);
 
-        var playerHandler = new ActivePlayersHandler
+        ActivePlayersHandler PlayerHandler = new ActivePlayersHandler
             .ActivePlayersHandlerBuilder()
-            .SetPlayer(playerList[0])
-            .SetPlayer(playerList[1])
-            .SetPlayer(playerList[2])
-            .SetPlayer(playerList[3])
+            .SetPlayer(PlayerList[0])
+            .SetPlayer(PlayerList[1])
+            .SetPlayer(PlayerList[2])
+            .SetPlayer(PlayerList[3])
             .Build();
 
-        Game.Instance.SetPlayerHandler(playerHandler);
-        Game.Instance.SetPlayerUIHandlers(new List<PlayerUIHandler>() { playerRedUi, playerBlueUi, playerYellowUi, playerGreenUi });
-        Game.Instance.SetLogTextHandler(new GameLogUIHandler(gameLogText));
+        Game.Instance.SetPlayerHandler(PlayerHandler);
+        Game.Instance.SetPlayerUIHandlers(new List<PlayerUIHandler>() { PlayerRedUi, PlayerBlueUi, PlayerYellowUi, PlayerGreenUi });
+        Game.Instance.SetLogTextHandler(new GameLogUIHandler(GameLogText));
 
-        Game.Instance.PlayGame(dice);
+        Game.Instance.PlayGame(Dice);
     }
 }
