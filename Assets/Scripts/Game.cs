@@ -1,10 +1,8 @@
 using Assets.Scripts.Board;
 using Assets.Scripts.Gameplay;
+using Assets.Scripts.UI;
 using Assets.Scripts.Utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using UnityEngine;
 
 public enum PlayerCreed
@@ -31,12 +29,16 @@ public class Game
 
     private List<IField> fields;
     private List<PlayerUIHandler> playerUIHandlers;
+    private GameLogUIHandler gameLogUIHandler;
 
     public int FieldCount => fields.Count;
     public Player CurrentPlayer { get; private set; }
 
     public delegate void HandleVictory(Player player);
     public event HandleVictory OnVictory;
+
+    public delegate void MessageEvent(string message);
+    public event MessageEvent OnMessageEvent;
 
     public void SetBoard(IBoard board)
     {
@@ -57,6 +59,11 @@ public class Game
     public void SetPlayerUIHandlers(List<PlayerUIHandler> playerUIHandlers)
     {
         this.playerUIHandlers = playerUIHandlers;
+    }
+
+    public void SetLogTextHandler(GameLogUIHandler gameLogUIHandler)
+    {
+        this.gameLogUIHandler = gameLogUIHandler;
     }
 
     public void HandlePointAchieved(PlayerCreed creed)
@@ -114,6 +121,7 @@ public class Game
     {
         foreach (var currentPlayer in playerHandler.GetNextPlayer())
         {
+            OnMessageEvent?.Invoke(GameResources.STR_DiceRolling);
             CurrentPlayer = currentPlayer;
             HighlightSelectablePawns();
             Pawn selectedPawn = CurrentPlayer.SelectPawn(board.GetPawns(CurrentPlayer.Creed));

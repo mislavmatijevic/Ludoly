@@ -1,5 +1,6 @@
 using Assets.Scripts.Board;
 using Assets.Scripts.Gameplay;
+using Assets.Scripts.UI;
 using Assets.Scripts.Utils;
 using System.Collections.Generic;
 using TMPro;
@@ -29,6 +30,7 @@ public class GameInitialization : MonoBehaviour
     public TextMeshProUGUI playerGreenPointsTMP;
 
     public Dice dice;
+    public TextMeshProUGUI gameLogText;
 
     /// <summary>
     /// Sets up the main Game singleton object and starts the game.
@@ -54,6 +56,7 @@ public class GameInitialization : MonoBehaviour
 
         Game.Instance.SetPlayerHandler(playerHandler);
         Game.Instance.SetPlayerUIHandlers(new List<PlayerUIHandler>() { playerRedUi, playerBlueUi, playerYellowUi, playerGreenUi });
+        Game.Instance.SetLogTextHandler(new GameLogUIHandler(gameLogText));
 
         Game.Instance.StartGame(dice);
     }
