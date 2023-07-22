@@ -126,6 +126,7 @@ public class Game
             HighlightSelectablePawns();
             Pawn selectedPawn = CurrentPlayer.SelectPawn(board.GetPawns(CurrentPlayer.Creed));
             int diceResult = await dice.RollDice();
+            OnMessageEvent?.Invoke(GameResources.STR_GetDiceResultMsg(diceResult, CurrentPlayer));
             Debug.Log(diceResult);
             // MovePawn
             break;
