@@ -4,7 +4,7 @@ using UnityEngine;
 public class Pawn : MonoBehaviour
 {
     public PawnSpawn SpawnPoint;
-    public Animator OnActiveAnimation;
+    public Animator OnSelectedAnimation;
 
     public PlayerCreed Creed { get; private set; }
     public bool IsAlive { get; set; } = true;
@@ -18,20 +18,56 @@ public class Pawn : MonoBehaviour
         set => GetComponent<Light>().enabled = value;
     }
 
-    public delegate void SelectionStateChange(Pawn pawn);
-    public event SelectionStateChange OnSelectionStateChanged;
+    public delegate void PawnStateChange(Pawn pawn);
+    /// <summary>
+    /// Player is just messing around and pressed once on this pawn to see what happens.
+    /// </summary>
+    public event PawnStateChange OnSelectedStateChanged;
+    /// <summary>
+    /// Player deems this pawn worthy of the next move.
+    /// </summary>
+    public event PawnStateChange OnActivated;
 
-    private bool selected = false;
+    private bool _selected = false;
+    /// <summary>
+    /// This is true when the player selects this pawn by clicking it once.
+    /// </summary>
     public bool Selected
     {
-        get => selected;
+        get => _selected;
         set
         {
             if (Selectable)
             {
-                selected = value;
-                OnActiveAnimation.enabled = value;
-                OnSelectionStateChanged?.Invoke(this);
+                _selected = value;
+                OnSelectedAnimation.enabled = value;
+                OnSelectedStateChanged?.Invoke(this);
+            }
+        }
+    }
+
+    private bool _activated = false;
+    /// <summary>
+    /// This is true when the player chooses this pawn by double-clicking it.
+    /// It's a final selection meant to activate the pawn for whatever action player has in mind.
+    /// When this property changes, it automatically resets the Selected property to false as well.
+    /// </summary>
+    public bool Activated
+    {
+        get => _activated;
+        set
+        {
+            if (Selectable)
+            {
+                _activated = value;
+
+                _selected = false;
+                OnSelectedAnimation.enabled = false;
+
+                if (_activated)
+                {
+                    OnActivated?.Invoke(this);
+                }
             }
         }
     }
@@ -65,11 +101,12 @@ public class Pawn : MonoBehaviour
         {
             if ((Time.time - _doubleClickStart) < 0.3f)
             {
-                Selected = true;
+                Activated = true;
                 _doubleClickStart = -1;
             }
             else
             {
+                Selected = true;
                 _doubleClickStart = Time.time;
             }
         }

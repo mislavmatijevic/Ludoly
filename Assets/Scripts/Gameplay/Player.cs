@@ -21,21 +21,34 @@ namespace Assets.Scripts.Gameplay
         public async Task<Pawn> SelectOnePawnAsync(HashSet<Pawn> pawns)
         {
             Pawn selectedPawn = null;
+
+            void DeselectAllPawnsExcept(Pawn selectedPawn)
+            {
+                foreach (Pawn nonSelectedPawn in pawns)
+                {
+                    if (nonSelectedPawn != selectedPawn)
+                    {
+                        nonSelectedPawn.Selected = false;
+                    }
+                }
+            }
+
             await Task.Run(() =>
             {
                 foreach (Pawn p in pawns)
                 {
                     p.Selectable = true;
-                    p.OnSelectionStateChanged += delegate
+                    p.OnSelectedStateChanged += delegate
                     {
-                        selectedPawn = p;
-                        foreach (Pawn nonSelectedPawn in pawns)
+                        if (p.Selected)
                         {
-                            if (nonSelectedPawn != selectedPawn)
-                            {
-                                nonSelectedPawn.Selected = false;
-                            }
+                            DeselectAllPawnsExcept(p);
                         }
+                    };
+                    p.OnActivated += delegate
+                    {
+                        DeselectAllPawnsExcept(p);
+                        selectedPawn = p;
                     };
                 }
                 while (selectedPawn == null)
@@ -43,6 +56,7 @@ namespace Assets.Scripts.Gameplay
                     _ = Task.Yield();
                 }
             });
+
             return selectedPawn;
         }
     }

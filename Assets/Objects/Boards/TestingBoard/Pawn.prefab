@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnPoint: {fileID: 0}
-  OnActiveAnimation: {fileID: 8170324313079281413}
+  OnSelectedAnimation: {fileID: 8170324313079281413}
 --- !u!108 &4479570977358009763
 Light:
   m_ObjectHideFlags: 0
