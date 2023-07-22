@@ -118,7 +118,7 @@ public class Game
         }
     }
 
-    public async void StartGame(Dice dice)
+    public async void PlayGame(Dice dice)
     {
         foreach (var currentPlayer in playerHandler.GetNextPlayer())
         {

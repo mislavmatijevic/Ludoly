@@ -58,6 +58,6 @@ public class GameInitialization : MonoBehaviour
         Game.Instance.SetPlayerUIHandlers(new List<PlayerUIHandler>() { playerRedUi, playerBlueUi, playerYellowUi, playerGreenUi });
         Game.Instance.SetLogTextHandler(new GameLogUIHandler(gameLogText));
 
-        Game.Instance.StartGame(dice);
+        Game.Instance.PlayGame(dice);
     }
 }
