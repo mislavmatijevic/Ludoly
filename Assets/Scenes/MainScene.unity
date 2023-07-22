@@ -886,6 +886,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 471814142}
   m_CullTransparentMesh: 1
+--- !u!114 &480738123 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2040645120714628859, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1024773317298001608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000dabc49747fa44d8495d96a84b8993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &605826571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,6 +1164,30 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1024773317298001608}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &898398661 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7998456451830449239, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1024773317298001608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000dabc49747fa44d8495d96a84b8993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &947627650 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5412667485085822069, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1024773317298001608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000dabc49747fa44d8495d96a84b8993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &973713088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,6 +1874,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6c00c301a544b9409d1f775933bef70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1941348270 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3182756686106950792, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1024773317298001608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000dabc49747fa44d8495d96a84b8993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2063425160
 GameObject:
   m_ObjectHideFlags: 0
@@ -2119,6 +2167,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1211998047856135060, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+        type: 3}
+      propertyPath: redPawnSpawn
+      value: 
+      objectReference: {fileID: 480738123}
+    - target: {fileID: 1211998047856135060, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+        type: 3}
+      propertyPath: bluePawnSpawn
+      value: 
+      objectReference: {fileID: 947627650}
+    - target: {fileID: 1211998047856135060, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+        type: 3}
+      propertyPath: greenPawnSpawn
+      value: 
+      objectReference: {fileID: 898398661}
+    - target: {fileID: 1211998047856135060, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+        type: 3}
+      propertyPath: yellowPawnSpawn
+      value: 
+      objectReference: {fileID: 1941348270}
     - target: {fileID: 1267677969911728091, guid: f47852041d4d7c54597e2a1a3c10d6f9,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2128,6 +2196,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Convex
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993904704028392217, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+        type: 3}
+      propertyPath: m_Name
+      value: StartYellowField
+      objectReference: {fileID: 0}
+    - target: {fileID: 5752951011599316250, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913637133903409965, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+        type: 3}
+      propertyPath: m_Name
+      value: StartBlueField
       objectReference: {fileID: 0}
     - target: {fileID: 6129619485878835006, guid: f47852041d4d7c54597e2a1a3c10d6f9,
         type: 3}
@@ -2183,6 +2266,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Board
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813052052876841976, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+        type: 3}
+      propertyPath: m_Name
+      value: StartGreenField
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788397063274569902, guid: f47852041d4d7c54597e2a1a3c10d6f9,
+        type: 3}
+      propertyPath: m_Name
+      value: StartRedField
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

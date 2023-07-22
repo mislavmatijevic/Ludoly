@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Pawn : MonoBehaviour
 {
@@ -14,10 +15,16 @@ public class Pawn : MonoBehaviour
     {
         set
         {
-            if (value == true)
-            {
-                
-            }
+            GetComponent<Light>().enabled = value;
+        }
+    }
+
+    public Color Color
+    {
+        set
+        {
+            GetComponent<Renderer>().material.color = value;
+            GetComponent<Light>().color = value;
         }
     }
 
