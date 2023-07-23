@@ -9,11 +9,11 @@ public class Dice : MonoBehaviour
     private Quaternion _startingRotation;
     private bool _isDiceRolling = false;
 
-    private void Start()
+    private void Awake()
     {
+        _startingPosition = transform.localPosition;
+        _startingRotation = transform.localRotation;
         _diceRigidbody = GetComponent<Rigidbody>();
-        _startingPosition = transform.position;
-        _startingRotation = transform.rotation;
     }
 
     public async Task<int> RollDice()
@@ -30,8 +30,7 @@ public class Dice : MonoBehaviour
 
     private void MoveToStartingPosition()
     {
-        transform.position = _startingPosition;
-        transform.rotation = _startingRotation;
+        transform.SetLocalPositionAndRotation(_startingPosition, _startingRotation);
     }
 
     private IEnumerator ThrowDice()
