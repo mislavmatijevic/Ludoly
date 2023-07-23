@@ -91,30 +91,34 @@ public class Game
         _playerUIHandlers = null;
     }
 
-    private void MovePawn(Pawn pawn, int amount)
+    private void MovePawn(Pawn pawn, int moveAmount)
     {
         if (!pawn.IsOnTheBoard)
         {
             pawn.SpawnOnSpawnpoint();
+            moveAmount--;
         }
 
-        int startingFieldIndex = _fields.FindIndex(field => field == pawn.CurrentField);
-        int lastReachableField = startingFieldIndex + amount;
+        int currentFieldIndex = _fields.FindIndex(field => field == pawn.CurrentField);
+        int lastReachableField = currentFieldIndex + moveAmount;
 
         if (lastReachableField >= FieldCount)
         {
             lastReachableField -= FieldCount;
         }
 
-        for (int i = startingFieldIndex; i != lastReachableField && pawn.IsAlive; i++)
+        do
         {
-            if (i >= FieldCount)
+            currentFieldIndex++;
+
+            if (currentFieldIndex >= FieldCount)
             {
-                i = 0;
+                currentFieldIndex = 0;
             }
 
-            _fields[i].HandleMovingToOwnPosition(pawn);
-        }
+            _fields[currentFieldIndex].HandleMovingToOwnPosition(pawn);
+
+        } while (currentFieldIndex != lastReachableField);
     }
 
     public async void PlayGame(Dice dice)
