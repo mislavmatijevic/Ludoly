@@ -8,10 +8,11 @@ public class Pawn : MonoBehaviour
 
     public PlayerCreed Creed { get; private set; }
     public bool IsAlive { get; set; } = true;
+    public IField CurrentField { get; set; } = null;
 
     private Vector3 _startingPosition;
 
-    public int MovesMade { get; private set; } = 0;
+    public bool IsOnTheBoard { get; private set; } = false;
 
     public bool Highlight
     {
@@ -116,12 +117,12 @@ public class Pawn : MonoBehaviour
     {
         transform.position = _startingPosition;
         IsAlive = false;
-        MovesMade = 0;
+        IsOnTheBoard = false;
     }
 
-    internal void MoveToField(GameObject fieldObject)
+    internal void MoveOnField(GameObject fieldObject)
     {
-        _ = fieldObject.GetComponent<IField>() ?? throw new InvalidFieldException();
+        IField newField = fieldObject.GetComponent<IField>() ?? throw new InvalidFieldException();
         Bounds pawnBounds = GetComponent<Renderer>().bounds;
 
         float pawnCenterPointHeight = (pawnBounds.max.y + pawnBounds.min.y) / 2;
@@ -131,5 +132,13 @@ public class Pawn : MonoBehaviour
             fieldObject.transform.position.y + pawnCenterPointHeight,
             fieldObject.transform.position.z
         );
+
+        CurrentField = newField;
+    }
+
+    internal void SpawnOnSpawnpoint()
+    {
+        IsOnTheBoard = true;
+        MoveOnField(SpawnPoint.SpawnpointField.gameObject);
     }
 }

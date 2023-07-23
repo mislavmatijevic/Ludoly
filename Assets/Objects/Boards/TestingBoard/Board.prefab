@@ -4026,6 +4026,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PawnSpawnBlue
       objectReference: {fileID: 0}
+    - target: {fileID: 4561055976763327899, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: m_TagString
+      value: PawnSpawnTag
+      objectReference: {fileID: 0}
     - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: Creed
@@ -4171,6 +4176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PawnSpawnGreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 4561055976763327899, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: m_TagString
+      value: PawnSpawnTag
       objectReference: {fileID: 0}
     - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
@@ -4318,6 +4328,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PawnSpawnRed
       objectReference: {fileID: 0}
+    - target: {fileID: 4561055976763327899, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: m_TagString
+      value: PawnSpawnTag
+      objectReference: {fileID: 0}
     - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}
       propertyPath: creed
@@ -4458,6 +4473,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PawnSpawnYellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4561055976763327899, guid: 902f42a3db8eb4043bca02456bcf0722,
+        type: 3}
+      propertyPath: m_TagString
+      value: PawnSpawnTag
       objectReference: {fileID: 0}
     - target: {fileID: 6129651802667622359, guid: 902f42a3db8eb4043bca02456bcf0722,
         type: 3}

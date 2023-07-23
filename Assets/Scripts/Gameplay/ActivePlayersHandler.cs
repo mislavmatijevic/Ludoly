@@ -35,12 +35,17 @@ namespace Assets.Scripts.Gameplay
             int iterator = 0;
             while (IsEnabled)
             {
-                if (iterator == _activePlayers.Count)
+                if (iterator >= 4)
                 {
                     iterator = 0;
                 }
 
-                yield return _activePlayers[CreedSelector.GetCreedBasedOnIndex(iterator)];
+                if (_activePlayers.TryGetValue(CreedSelector.GetCreedBasedOnIndex(iterator), out Player player))
+                {
+                    yield return player;
+                }
+
+                iterator++;
             }
         }
 

@@ -3,7 +3,6 @@ using Assets.Scripts.Gameplay;
 using Assets.Scripts.UI;
 using Assets.Scripts.Utils;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 public enum PlayerCreed
 {
@@ -67,6 +66,7 @@ public class Game
     public void HandlePointAchieved(PlayerCreed creed)
     {
         Player player = _playerHandler.GetPlayerByCreed(creed);
+        player.AchievedPoints += 1;
         CheckVictoryCondition(player);
     }
 
@@ -93,14 +93,20 @@ public class Game
 
     private void MovePawn(Pawn pawn, int amount)
     {
-        int lastReachableField = pawn.MovesMade + amount;
+        if (!pawn.IsOnTheBoard)
+        {
+            pawn.SpawnOnSpawnpoint();
+        }
+
+        int startingFieldIndex = _fields.FindIndex(field => field == pawn.CurrentField);
+        int lastReachableField = startingFieldIndex + amount;
 
         if (lastReachableField >= FieldCount)
         {
             lastReachableField -= FieldCount;
         }
 
-        for (int i = pawn.MovesMade; i != lastReachableField; i++)
+        for (int i = startingFieldIndex; i != lastReachableField && pawn.IsAlive; i++)
         {
             if (i >= FieldCount)
             {
@@ -108,10 +114,6 @@ public class Game
             }
 
             _fields[i].HandleMovingToOwnPosition(pawn);
-            if (!pawn.IsAlive)
-            {
-                break;
-            }
         }
     }
 
@@ -119,22 +121,28 @@ public class Game
     {
         foreach (Player currentPlayer in _playerHandler.GetNextPlayer())
         {
-            OnMessageEvent?.Invoke(GameResources.STR_DiceRolling);
-            int diceResult = await dice.RollDice();
             CurrentPlayer = currentPlayer;
+
+            HashSet<Pawn> pawns = _board.GetPawns(CurrentPlayer.Creed);
+            ChangePawnsHighligh(pawns, true);
+
+            OnMessageEvent?.Invoke(GameResources.STR_DiceRolling);
+
+            int diceResult = await dice.RollDice();
             OnMessageEvent?.Invoke(GameResources.STR_GetDiceResultMsg(diceResult, CurrentPlayer));
-            Pawn selectedPawn = await GetSelectedPawnAsync(CurrentPlayer);
+
+            Pawn selectedPawn = await CurrentPlayer.SelectOnePawnAsync(pawns);
             MovePawn(selectedPawn, diceResult);
+
+            ChangePawnsHighligh(pawns, false);
         }
     }
 
-    private async Task<Pawn> GetSelectedPawnAsync(Player player)
+    private void ChangePawnsHighligh(HashSet<Pawn> pawns, bool doHighlight)
     {
-        HashSet<Pawn> pawns = _board.GetPawns(player.Creed);
         foreach (Pawn pawn in pawns)
         {
-            pawn.Highlight = true;
+            pawn.Highlight = doHighlight;
         }
-        return await player.SelectOnePawnAsync(_board.GetPawns(CurrentPlayer.Creed));
     }
 }

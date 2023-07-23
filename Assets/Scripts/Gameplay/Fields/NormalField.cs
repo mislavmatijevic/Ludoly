@@ -6,7 +6,7 @@ namespace Assets.Scripts.Board.Fields
     {
         public virtual void HandleMovingToOwnPosition(Pawn pawn)
         {
-            pawn.MoveToField(gameObject);
+            pawn.MoveOnField(gameObject);
         }
     }
 }
